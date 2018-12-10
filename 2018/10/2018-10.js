@@ -81,6 +81,7 @@ for (let i = 0; i < 100000; i++) {
     if (bb.area > prevArea) {
         iterate(points, -1);
         dump(points, bb);
+        console.log(i - 1, "seconds");
         break;
     }
     prevArea = bb.area;
