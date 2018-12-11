@@ -5,27 +5,17 @@ const WIDTH = 300;
 const HEIGHT = 300;
 
 const grid = [];
-const integral = [];
+const integral = [ Array(WIDTH).fill(0) ];
 
-function squareSum([x1, y1], [x2, y2]) { // x/y are 1-based, but the integral array is 0-based
+function squareSum([x1, y1], [x2, y2]) { // all arrays are 1-based
     // console.log([x1, y1], [x2, y2]);
-    let sum = integral[y2 - 1][x2 - 1];
-    if (y1 > 1) { // there are lines above me
-        sum -= integral[y1 - 2][x2 - 1];
-    }
-    if (x1 > 1) { // there are lines left of me
-        sum -= integral[y2 - 1][x1 - 2];
-    }
-    if (x1 > 1 && y1 > 1) {
-        sum += integral[y1 - 2][x1 - 2];
-    }
-    return sum;
+    return integral[y2][x2] - integral[y1 - 1][x2] - integral[y2][x1 - 1] + integral[y1 - 1][x1 - 1];
 }
 
 for (let y = 1; y <= HEIGHT; y++) {
     const line = [];
     grid.push(line);
-    const integralLine = [];
+    const integralLine = [ 0 ];
     integral.push(integralLine);
 
     for (let x = 1; x <= WIDTH; x++) {
@@ -34,12 +24,7 @@ for (let y = 1; y <= HEIGHT; y++) {
         powerLevel = Number((powerLevel.length < 3) ? 0 : powerLevel[powerLevel.length - 3]) - 5;
         line.push(powerLevel);
 
-        integralLine.push(
-            (x > 1 ? integral[y - 1][x - 2] : 0) +
-            (y > 1 ? integral[y - 2][x - 1] : 0) -
-            (x > 1 && y > 1 ? integral[y - 2][x - 2] : 0) +
-            powerLevel
-        );
+        integralLine.push(integral[y][x - 1] + integral[y - 1][x] - integral[y - 1][x - 1] + powerLevel);
     }
 }
 
