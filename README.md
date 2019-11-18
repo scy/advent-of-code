@@ -17,6 +17,8 @@ In other words, I’m trying to lower the entry barrier for people who struggle 
 Therefore, the documentation and announcements in this repository that deal with the streams is in German as well.
 Feel free to browse the code though! 😉
 
+You can contact me on Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy)) or Twitter ([@scy](https://twitter.com/scy)).
+
 ## Worum geht’s?
 
 Dieses Git-Repository enthält meine Lösungen zu einigen Aufgaben („Puzzles“) aus dem [Advent of Code](https://adventofcode.com/), einem jährlich stattfindenden „Programmier-Adventskalender“.
