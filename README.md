@@ -48,6 +48,15 @@ Der Plan ist:
 * **im November:** mehrere Vorab-Streams, in denen ich mein Streaming-Setup mit OBS erkläre sowie Rust aufsetze und ein Tutorial durcharbeite. Vielleicht bauen wir auch zusammen ne Intromusik. 😉 Terminankündigungen hier sowie auf Mastodon/Twitter.
 * **So 01.12. 19:30:** Tag 1! 🎉
 
+## Advent of Code 2018
+
+2018 lag mein Fokus auf modernem JavaScript, sprich ≥ ES6.
+Dafür habe ich mich mit dem hervorragenden [JavaScript.info](https://javascript.info/) eingearbeitet und dort auch immer wieder nachgeschlagen.
+
+Leider ist am 13.12. (wann auch sonst) meine Platte abgeraucht und ich habe die Streams nicht fortgesetzt.
+
+Die Streams der ersten zwölf Tage findet ihr in dieser YouTube-Playlist: [Advent of Code 2018](https://www.youtube.com/playlist?list=PLmsG3H3Vzkf_HZppROt70VbflbSEJtj1K), den Code natürlich hier im Repo im Ordner [2018](2018).
+
 ## FAQ
 
 ### Warum streamst du nicht auf Twitch?
