@@ -17,7 +17,7 @@ In other words, I’m trying to lower the entry barrier for people who struggle 
 Therefore, the documentation and announcements in this repository that deal with the streams is in German as well.
 Feel free to browse the code though! 😉
 
-You can contact me on Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy)) or Twitter ([@scy](https://twitter.com/scy)).
+You can contact me on Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy)), Twitter ([@scy](https://twitter.com/scy)) or visit [our Discord community](https://discord.gg/GVqzyEV).
 
 ## Worum geht’s?
 
@@ -41,12 +41,19 @@ Der Plan ist:
 
 * Jeden Tag (bis auf wenige Ausnahmen) um **19:30 Uhr** ein Stream auf YouTube.
 * Dieses Jahr programmiere ich in **[Rust](https://www.rust-lang.org/)**. Ich bin totaler Newbie und habe noch keine Zeile Code darin geschrieben. Es wird **Vorab-Streams** geben, in denen ich Rust aufsetze und (wahrscheinlich) [Rust by Example](https://doc.rust-lang.org/rust-by-example/) durcharbeite.
-* Aktuelle Ankündigungen und die Möglichkeit, mich anzuquatschen, gibt’s auf Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy)) und Twitter ([@scy](https://twitter.com/scy)). Außerdem überlege ich, ein Discord aufzusetzen, [was meint ihr?](https://github.com/scy/advent-of-code/issues/1)
+* Aktuelle Ankündigungen und die Möglichkeit, miteinander zu quatschen, gibt’s in [unserer Discord-Community](https://discord.gg/GVqzyEV); alternativ auf Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy)) und Twitter ([@scy](https://twitter.com/scy)).
 
-### 📅 Streamkalender
+### 📅 Streamkalender 📅
 
-* **im November:** mehrere Vorab-Streams, in denen ich mein Streaming-Setup mit OBS erkläre sowie Rust aufsetze und ein Tutorial durcharbeite. Vielleicht bauen wir auch zusammen ne Intromusik. 😉 Terminankündigungen hier sowie auf Mastodon/Twitter.
+* **im November:** mehrere Vorab-Streams, in denen ich mein Streaming-Setup mit OBS erkläre sowie Rust aufsetze und ein Tutorial durcharbeite. Vielleicht bauen wir auch zusammen ne Intromusik. 😉 Terminankündigungen hier, [auf Discord](https://discord.gg/GVqzyEV), [Mastodon](https://mastodon.scy.name/@scy) und [Twitter](https://twitter.com/scy).
+  * **Do 2019-11-21 20:00:** Rust aufsetzen und mit [Rust by Example](https://doc.rust-lang.org/rust-by-example/) anfangen.
 * **So 01.12. 19:30:** Tag 1! 🎉
+
+*Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
+
+#### Vergangene Streams
+
+* Mi 2019-11-20: [Bauen am Streaming-Setup](https://youtu.be/qIXtNoK_bH0)
 
 ## Advent of Code 2018
 
