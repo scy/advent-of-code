@@ -46,7 +46,7 @@ Der Plan ist:
 ### 📅 Streamkalender 📅
 
 * **im November:** mehrere Vorab-Streams, in denen ich mein Streaming-Setup mit OBS erkläre sowie Rust aufsetze und ein Tutorial durcharbeite. Vielleicht bauen wir auch zusammen ne Intromusik. 😉 Terminankündigungen hier, [auf Discord](https://discord.gg/GVqzyEV), [Mastodon](https://mastodon.scy.name/@scy) und [Twitter](https://twitter.com/scy).
-  * **Do 2019-11-21 20:00:** Rust aufsetzen und mit [Rust by Example](https://doc.rust-lang.org/rust-by-example/) anfangen.
+  * **[Do 2019-11-21 20:00](https://youtu.be/nBgGx9z9xTA):** Rust aufsetzen und mit [Rust by Example](https://doc.rust-lang.org/rust-by-example/) anfangen.
 * **So 01.12. 19:30:** Tag 1! 🎉
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
