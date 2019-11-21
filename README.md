@@ -72,3 +72,14 @@ Ich versuche seit ca. nem Jahr, so wenig mit Amazon (denen ja Twitch gehört) zu
 Die Arbeitsbedingungen dort sind ausbeuterisch, deren CEO Jeff Bezos hordet sein Geld lieber, anstatt damit Gutes zu tun und generell sind sie mir einfach unsympathisch.
 Google ist jetzt aus antikapitalistischer Sicht nur marginal besser, aber freie oder dezentrale Streamingplattformen gibt’s eben noch nicht so wirklich.
 Vielleicht wird das 2020 besser…?
+
+### Warum benutzt du nicht den YouTube-Chat, sondern Discord?
+
+Erstens heißt du im YouTube-Chat so wie dein „Kanal“, was üblicherweise deinem Google-Namen und damit oft deinem Passnamen entspricht.
+Sich einen Nickname auszusuchen, ist nicht so einfach, außer du benennst deinen „Kanal“ um.
+Und wenn du dich mit deinem Nickname identifizierst, fühlt sich der Passname einfach blöd an.
+Abgesehen davon fällt’s mir schwer, dich zuzuordnen, wenn ich dich nur unter deinem Nick kenne.
+
+Zweitens möchte ich aber auch eine Community abseits von den paar Stunden Stream hochziehen, von daher macht’s eben einfach Sinn, nen Dienst zu benutzen, der auch abseits der Streams genutzt werden kann.
+
+Und drittens hätte ich Bock, Stammgäste auch mal in den Stream dazu zu holen, das geht halt mit Discord auch direkt.
