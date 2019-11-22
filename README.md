@@ -46,7 +46,6 @@ Der Plan ist:
 ### 📅 Streamkalender 📅
 
 * **im November:** mehrere Vorab-Streams, in denen ich mein Streaming-Setup mit OBS erkläre sowie Rust aufsetze und ein Tutorial durcharbeite. Vielleicht bauen wir auch zusammen ne Intromusik. 😉 Terminankündigungen hier, [auf Discord](https://discord.gg/GVqzyEV), [Mastodon](https://mastodon.scy.name/@scy) und [Twitter](https://twitter.com/scy).
-  * **[Fr 2019-11-22 17:00](https://youtu.be/Sb0CbKU4D5o):** [Rust by Example](https://doc.rust-lang.org/rust-by-example/) Teil 2: Primitives, Custom Types, Variable Bindings.
 * **So 01.12. 19:30:** Tag 1! 🎉
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
@@ -55,6 +54,7 @@ Der Plan ist:
 
 * Mi 2019-11-20: [Bauen am Streaming-Setup](https://youtu.be/qIXtNoK_bH0)
 * Do 2019-11-21: [„Rust by Example“ Teil 1: Installation, Hello World, Stringformatierung](https://youtu.be/nBgGx9z9xTA)
+* Fr 2019-11-22: [„Rust by Example“ Teil 2: Primitive, Tupel, Arrays, Slices, Enums](https://youtu.be/Sb0CbKU4D5o)
 
 ## Advent of Code 2018
 
