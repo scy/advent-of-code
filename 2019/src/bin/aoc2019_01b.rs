@@ -13,10 +13,7 @@ fn fuel_with_fuel_fuel(mass: u32) -> u32 {
 
     let mut last_fuel_chunk = fuel_for_mass;
     let mut fuel_for_fuel = 0u32;
-    loop {
-        if (last_fuel_chunk == 0) {
-            break;
-        }
+    while last_fuel_chunk != 0 {
         last_fuel_chunk = fuel(last_fuel_chunk);
         fuel_for_fuel += last_fuel_chunk;
     }
