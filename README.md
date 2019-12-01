@@ -36,17 +36,18 @@ Aus diesem Grund sind in diesem Repository die Dokumentation und Ankündigungen,
 
 ## ✨ Advent of Code 2019! ✨
 
-Der Dezember steht vor der Tür und ich arbeite an der Vorbereitung der diesjährigen Streams.
-Der Plan ist:
+Endlich ist Dezember, der Advent of Code hat wieder angefangen!
+Mein Plan ist:
 
-* Jeden Tag (bis auf wenige Ausnahmen) um **19:30 Uhr** ein Stream auf YouTube.
-* Dieses Jahr programmiere ich in **[Rust](https://www.rust-lang.org/)**. Ich bin totaler Newbie und habe noch keine Zeile Code darin geschrieben. Es wird **Vorab-Streams** geben, in denen ich Rust aufsetze und (wahrscheinlich) [Rust by Example](https://doc.rust-lang.org/rust-by-example/) durcharbeite.
+* Jeden Tag ein Stream auf YouTube, üblicherweise um 19:30 Uhr, an manchen Tagen wegen Terminen zu anderen Uhrzeiten.
+* Dieses Jahr programmiere ich in **[Rust](https://www.rust-lang.org/)**. Ich bin totaler Newbie und hatte bis November noch keine Zeile Code darin geschrieben. Es gab Vorab-Streams, in denen ich Rust aufgesetzt habe und [Rust by Example](https://doc.rust-lang.org/rust-by-example/) ein Stück weit durchgearbeitet, siehe [vergangene Streams](#vergangene-streams).
 * Aktuelle Ankündigungen und die Möglichkeit, miteinander zu quatschen, gibt’s in [unserer Discord-Community](https://discord.gg/GVqzyEV); alternativ auf Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy)) und Twitter ([@scy](https://twitter.com/scy)).
+* Abonniert [meinen YouTube-Kanal](https://www.youtube.com/channel/UC2a5Ca5tgel0Ebq5ZgeUbRA) und aktiviert die Glocke, um benachrichtigt zu werden.
 
 ### 📅 Streamkalender 📅
 
-* **im November:** mehrere Vorab-Streams, in denen ich mein Streaming-Setup mit OBS erkläre sowie Rust aufsetze und ein Tutorial durcharbeite. Vielleicht bauen wir auch zusammen ne Intromusik. 😉 Terminankündigungen hier, [auf Discord](https://discord.gg/GVqzyEV), [Mastodon](https://mastodon.scy.name/@scy) und [Twitter](https://twitter.com/scy).
-* **So 2019-12-01 19:30:** Tag 1! 🎉
+* **So 2019-12-01 17:00:** [Tag 1](https://youtu.be/h-Zgni6L680)! 🎉
+* **Mo 2019-12-02 19:30:** Tag 2
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
 
