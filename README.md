@@ -46,17 +46,20 @@ Mein Plan ist:
 
 ### 📅 Streamkalender 📅
 
-* **So 2019-12-01 17:00:** [Tag 1](https://youtu.be/h-Zgni6L680)! 🎉
-* **Mo 2019-12-02 19:30:** Tag 2
+* **Mo 2019-12-02 19:30:** [Tag 2](https://youtu.be/_DnboNZCm0s)
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
 
 #### Vergangene Streams
 
+Wenn ihr die 2019er Streams von vorn bis hinten durchschauen wollt, gibt es hier die Playlist:
+[Advent of Code 2019](https://www.youtube.com/playlist?list=PLmsG3H3Vzkf-CMt-3GY7sG8D_6pGh1cA7)
+
 * Mi 2019-11-20: [Bauen am Streaming-Setup](https://youtu.be/qIXtNoK_bH0)
 * Do 2019-11-21: [„Rust by Example“ Teil 1: Installation, Hello World, Stringformatierung](https://youtu.be/nBgGx9z9xTA)
 * Fr 2019-11-22: [„Rust by Example“ Teil 2: Primitive, Tupel, Arrays, Slices, Enums](https://youtu.be/Sb0CbKU4D5o)
 * Di 2019-11-26: [pythoneer’s Rust-Tutorial: Ownership, Borrows, Move und Lifetimes](https://youtu.be/vuKHcaTEkdo)
+* So 2019-12-01: [Tag 1](https://youtu.be/h-Zgni6L680) (Raumschiff-Treibstoff)
 
 ## Advent of Code 2018
 
