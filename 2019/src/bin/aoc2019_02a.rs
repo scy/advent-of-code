@@ -4,8 +4,7 @@ use std::io::{self, BufRead, BufReader};
 fn compute(program: &mut [u32]) {
     let mut pos = 0;
     loop {
-        let opcode = program[pos];
-        match opcode {
+        match program[pos] {
             1 => {
                 let target_pos = program[pos+3] as usize;
                 program[target_pos] = program[program[pos+1] as usize] + program[program[pos+2] as usize];
@@ -15,7 +14,7 @@ fn compute(program: &mut [u32]) {
                 program[target_pos] = program[program[pos+1] as usize] * program[program[pos+2] as usize];
             },
             99 => break,
-            _ => panic!("unknown opcode {} at position {}", opcode, pos),
+            _ => panic!("unknown opcode {} at position {}", program[pos], pos),
         }
         pos += 4;
     }
