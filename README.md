@@ -47,6 +47,7 @@ Mein Plan ist:
 ### 📅 Streamkalender 📅
 
 * **Mo 2019-12-02 19:30:** [Tag 2](https://youtu.be/_DnboNZCm0s)
+* **Di 2019-12-03 11:00:** Tag 3
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
 
