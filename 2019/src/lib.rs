@@ -39,7 +39,11 @@ impl IntcodeMachine {
                 1 => self.add(&opvalue),
                 2 => self.mul(&opvalue),
                 3 => self.input(),
-                4 => self.output(),
+                4 => self.output(&opvalue),
+                5 => self.jump_if_true(&opvalue),
+                6 => self.jump_if_false(&opvalue),
+                7 => self.less_than(&opvalue),
+                8 => self.equals(&opvalue),
                 99 => break,
                 _ => panic!("unknown opcode {:?} at position {}", opvalue.opcode, self.ip),
             }
@@ -86,9 +90,38 @@ impl IntcodeMachine {
         self.program[params[0] as usize] = self.input.unwrap();
     }
 
-    fn output(&mut self) {
+    fn output(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(1);
-        self.output = Some(self.program[params[0] as usize]);
+        let resolved_params = self.resolve_position_params(&params, &opvalue);
+        self.output = Some(resolved_params[0]);
+    }
+
+    fn jump_if_true(&mut self, opvalue: &OpValue) {
+        let params = self.fetch_params(2);
+        let resolved_params = self.resolve_position_params(&params, &opvalue);
+        if resolved_params[0] != 0 {
+            self.ip = resolved_params[1] as usize;
+        }
+    }
+
+    fn jump_if_false(&mut self, opvalue: &OpValue) {
+        let params = self.fetch_params(2);
+        let resolved_params = self.resolve_position_params(&params, &opvalue);
+        if resolved_params[0] == 0 {
+            self.ip = resolved_params[1] as usize;
+        }
+    }
+
+    fn less_than(&mut self, opvalue: &OpValue) {
+        let params = self.fetch_params(3);
+        let resolved_params = self.resolve_position_params(&params, &opvalue);
+        self.program[params[2] as usize] = if resolved_params[0] < resolved_params[1] { 1 } else { 0 };
+    }
+
+    fn equals(&mut self, opvalue: &OpValue) {
+        let params = self.fetch_params(3);
+        let resolved_params = self.resolve_position_params(&params, &opvalue);
+        self.program[params[2] as usize] = if resolved_params[0] == resolved_params[1] { 1 } else { 0 };
     }
 }
 
