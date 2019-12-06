@@ -67,7 +67,6 @@ impl IntcodeMachine {
             result.push(match opvalue.param_mode(idx) {
                 ParamMode::Immediate => *param,
                 ParamMode::Position => self.program[*param as usize],
-                _ => unimplemented!(),
             });
         }
         result
