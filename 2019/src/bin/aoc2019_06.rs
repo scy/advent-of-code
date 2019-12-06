@@ -32,6 +32,32 @@ impl SpaceMap {
         }
         sum
     }
+
+    fn find_common_orbiting(&self, a: &String, b: &String) -> &String {
+        let mut parents = vec![];
+        let mut cur = self.orbits.get(a).unwrap();
+        loop {
+            parents.push(cur);
+            if let Some(new_cur) = self.orbits.get(cur) {
+                cur = new_cur;
+            } else {
+                break;
+            }
+        }
+        cur = self.orbits.get(b).unwrap();
+        loop {
+            if let Some(common) = parents.iter().find(|&&parent| parent == cur) {
+                break *common;
+            }
+            cur = self.orbits.get(cur).unwrap();
+        }
+    }
+
+    fn calc_transfers(&self, a: &String, b: &String) -> u32 {
+        self.count_orbits(self.orbits.get(a).unwrap()) +
+        self.count_orbits(self.orbits.get(b).unwrap()) -
+        2 * self.count_orbits(self.find_common_orbiting(self.orbits.get(a).unwrap(), self.orbits.get(b).unwrap()))
+    }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -43,6 +69,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     println!("Checksum is {}.", map.checksum());
+    println!("Minimum number of orbital transfers is {}.", map.calc_transfers(&"YOU".to_string(), &"SAN".to_string()));
 
     Ok(())
 }
@@ -57,7 +84,7 @@ fn test_single_orbit() {
 }
 
 #[test]
-fn example() {
+fn example_a() {
     let mut map = SpaceMap::new();
     map.add(&"COM)B".to_string());
     map.add(&"B)C".to_string());
@@ -75,4 +102,24 @@ fn example() {
     assert_eq!(map.count_orbits(&"H".to_string()), 3);
     assert_eq!(map.count_orbits(&"E".to_string()), 4);
     assert_eq!(map.checksum(), 42);
+}
+
+#[test]
+fn example_b() {
+    let mut map = SpaceMap::new();
+    map.add(&"COM)B".to_string());
+    map.add(&"B)C".to_string());
+    map.add(&"C)D".to_string());
+    map.add(&"D)E".to_string());
+    map.add(&"E)F".to_string());
+    map.add(&"B)G".to_string());
+    map.add(&"G)H".to_string());
+    map.add(&"D)I".to_string());
+    map.add(&"E)J".to_string());
+    map.add(&"J)K".to_string());
+    map.add(&"K)L".to_string());
+    map.add(&"K)YOU".to_string());
+    map.add(&"I)SAN".to_string());
+    assert_eq!(map.find_common_orbiting(&"YOU".to_string(), &"SAN".to_string()), "D");
+    assert_eq!(map.calc_transfers(&"YOU".to_string(), &"SAN".to_string()), 4);
 }
