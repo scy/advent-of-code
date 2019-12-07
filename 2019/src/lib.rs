@@ -5,7 +5,7 @@ use itertools::Itertools;
 pub struct IntcodeMachine {
     program: Vec<i32>,
     ip: usize,
-    input: Option<i32>,
+    input: Vec<i32>,
     output: Option<i32>,
 }
 
@@ -14,7 +14,7 @@ impl IntcodeMachine {
         Self {
             program: input.split(',').map(|num| num.parse::<i32>().unwrap()).collect(),
             ip: 0,
-            input: None,
+            input: vec![],
             output: None,
         }
     }
@@ -24,8 +24,8 @@ impl IntcodeMachine {
         Self::from_string(&buffered.lines().map(|line| line.unwrap()).join(","))
     }
 
-    pub fn set_input(&mut self, input: i32) {
-        self.input = Some(input);
+    pub fn set_input(&mut self, input: Vec<i32>) {
+        self.input = input;
     }
 
     pub fn get_output(&self) -> i32 {
@@ -86,7 +86,7 @@ impl IntcodeMachine {
 
     fn input(&mut self) {
         let params = self.fetch_params(1);
-        self.program[params[0] as usize] = self.input.unwrap();
+        self.program[params[0] as usize] = self.input.remove(0);
     }
 
     fn output(&mut self, opvalue: &OpValue) {

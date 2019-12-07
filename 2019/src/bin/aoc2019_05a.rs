@@ -3,7 +3,7 @@ use aoc2019::IntcodeMachine;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let mut machine = IntcodeMachine::from_stdin();
-    machine.set_input(1);
+    machine.set_input(vec![1]);
     machine.compute();
     println!("Diagnostic code: {}", machine.get_output());
     Ok(())
@@ -12,7 +12,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 #[test]
 fn test_input() {
     let mut machine = IntcodeMachine::from_string("3,0,99");
-    machine.set_input(23);
+    machine.set_input(vec![23]);
     machine.compute();
     assert_eq!(machine.get_program(), "23,0,99");
 }
