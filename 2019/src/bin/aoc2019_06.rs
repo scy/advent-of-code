@@ -11,7 +11,7 @@ impl SpaceMap {
         Self { orbits: HashMap::new() }
     }
 
-    fn add(&mut self, def: String) {
+    fn add(&mut self, def: &str) {
         if let [orbited, orbiting] = def.split(')').collect::<Vec<&str>>()[0..2] {
             self.orbits.insert(orbiting.to_string(), orbited.to_string());
         }
@@ -65,7 +65,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut map = SpaceMap::new();
 
     for line in buffered.lines() {
-        map.add(line?);
+        map.add(&line?[..]);
     }
 
     println!("Checksum is {}.", map.checksum());
@@ -77,7 +77,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 #[test]
 fn test_single_orbit() {
     let mut map = SpaceMap::new();
-    map.add("COM)A".to_string());
+    map.add("COM)A");
     let mut expected = HashMap::new();
     expected.insert("A".to_string(), "COM".to_string());
     assert_eq!(map.orbits, expected);
@@ -86,17 +86,17 @@ fn test_single_orbit() {
 #[test]
 fn example_a() {
     let mut map = SpaceMap::new();
-    map.add("COM)B".to_string());
-    map.add("B)C".to_string());
-    map.add("C)D".to_string());
-    map.add("D)E".to_string());
-    map.add("E)F".to_string());
-    map.add("B)G".to_string());
-    map.add("G)H".to_string());
-    map.add("D)I".to_string());
-    map.add("E)J".to_string());
-    map.add("J)K".to_string());
-    map.add("K)L".to_string());
+    map.add("COM)B");
+    map.add("B)C");
+    map.add("C)D");
+    map.add("D)E");
+    map.add("E)F");
+    map.add("B)G");
+    map.add("G)H");
+    map.add("D)I");
+    map.add("E)J");
+    map.add("J)K");
+    map.add("K)L");
     assert_eq!(map.count_orbits(&"COM".to_string()), 0);
     assert_eq!(map.count_orbits(&"B".to_string()), 1);
     assert_eq!(map.count_orbits(&"H".to_string()), 3);
@@ -107,19 +107,19 @@ fn example_a() {
 #[test]
 fn example_b() {
     let mut map = SpaceMap::new();
-    map.add("COM)B".to_string());
-    map.add("B)C".to_string());
-    map.add("C)D".to_string());
-    map.add("D)E".to_string());
-    map.add("E)F".to_string());
-    map.add("B)G".to_string());
-    map.add("G)H".to_string());
-    map.add("D)I".to_string());
-    map.add("E)J".to_string());
-    map.add("J)K".to_string());
-    map.add("K)L".to_string());
-    map.add("K)YOU".to_string());
-    map.add("I)SAN".to_string());
+    map.add("COM)B");
+    map.add("B)C");
+    map.add("C)D");
+    map.add("D)E");
+    map.add("E)F");
+    map.add("B)G");
+    map.add("G)H");
+    map.add("D)I");
+    map.add("E)J");
+    map.add("J)K");
+    map.add("K)L");
+    map.add("K)YOU");
+    map.add("I)SAN");
     assert_eq!(map.find_common_orbiting(&"YOU".to_string(), &"SAN".to_string()), "D");
     assert_eq!(map.calc_transfers(&"YOU".to_string(), &"SAN".to_string()), 4);
 }
