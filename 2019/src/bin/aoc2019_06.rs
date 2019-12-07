@@ -65,7 +65,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut map = SpaceMap::new();
 
     for line in buffered.lines() {
-        map.add(&line?[..]);
+        map.add(&line?);
     }
 
     println!("Checksum is {}.", map.checksum());
