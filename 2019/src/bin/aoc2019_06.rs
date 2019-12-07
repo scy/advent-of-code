@@ -17,7 +17,7 @@ impl SpaceMap {
         }
     }
 
-    fn count_orbits(&self, name: &String) -> u32 {
+    fn count_orbits(&self, name: &str) -> u32 {
         if let Some(orbiting) = self.orbits.get(name) {
             1 + self.count_orbits(&orbiting)
         } else {
@@ -33,7 +33,7 @@ impl SpaceMap {
         sum
     }
 
-    fn find_common_orbiting(&self, a: &String, b: &String) -> &String {
+    fn find_common_orbiting(&self, a: &str, b: &str) -> &String {
         let mut parents = vec![];
         let mut cur = self.orbits.get(a).unwrap();
         loop {
@@ -53,7 +53,7 @@ impl SpaceMap {
         }
     }
 
-    fn calc_transfers(&self, a: &String, b: &String) -> u32 {
+    fn calc_transfers(&self, a: &str, b: &str) -> u32 {
         self.count_orbits(self.orbits.get(a).unwrap()) +
         self.count_orbits(self.orbits.get(b).unwrap()) -
         2 * self.count_orbits(self.find_common_orbiting(self.orbits.get(a).unwrap(), self.orbits.get(b).unwrap()))
@@ -69,7 +69,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     println!("Checksum is {}.", map.checksum());
-    println!("Minimum number of orbital transfers is {}.", map.calc_transfers(&"YOU".to_string(), &"SAN".to_string()));
+    println!("Minimum number of orbital transfers is {}.", map.calc_transfers("YOU", "SAN"));
 
     Ok(())
 }
@@ -97,10 +97,10 @@ fn example_a() {
     map.add("E)J");
     map.add("J)K");
     map.add("K)L");
-    assert_eq!(map.count_orbits(&"COM".to_string()), 0);
-    assert_eq!(map.count_orbits(&"B".to_string()), 1);
-    assert_eq!(map.count_orbits(&"H".to_string()), 3);
-    assert_eq!(map.count_orbits(&"E".to_string()), 4);
+    assert_eq!(map.count_orbits("COM"), 0);
+    assert_eq!(map.count_orbits("B"), 1);
+    assert_eq!(map.count_orbits("H"), 3);
+    assert_eq!(map.count_orbits("E"), 4);
     assert_eq!(map.checksum(), 42);
 }
 
@@ -120,6 +120,6 @@ fn example_b() {
     map.add("K)L");
     map.add("K)YOU");
     map.add("I)SAN");
-    assert_eq!(map.find_common_orbiting(&"YOU".to_string(), &"SAN".to_string()), "D");
-    assert_eq!(map.calc_transfers(&"YOU".to_string(), &"SAN".to_string()), 4);
+    assert_eq!(map.find_common_orbiting("YOU", "SAN"), "D");
+    assert_eq!(map.calc_transfers("YOU", "SAN"), 4);
 }
