@@ -46,7 +46,7 @@ Mein Plan ist:
 
 ### 📅 Streamkalender 📅
 
-* **So 2019-12-08 15:00:** [Tag 8](https://youtu.be/3pbzOg2QCTc)
+* **So 2019-12-08 16:00:** [Tag 8](https://youtu.be/3pbzOg2QCTc)
 * **Mo 2019-12-09 16:30:** Tag 9
 * **Di 2019-12-10 18:00:** Tag 10
 
