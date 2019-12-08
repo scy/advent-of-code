@@ -46,8 +46,9 @@ Mein Plan ist:
 
 ### 📅 Streamkalender 📅
 
-* **Sa 2019-12-07 14:00:** [Tag 7](https://youtu.be/AuqY50f1rAU)
-* **So 2019-12-08 15:00:** Tag 8
+* **So 2019-12-08 15:00:** [Tag 8](https://youtu.be/3pbzOg2QCTc)
+* **Mo 2019-12-09 16:30:** Tag 9
+* **Di 2019-12-10 18:00:** Tag 10
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
 
@@ -66,6 +67,7 @@ Wenn ihr die 2019er Streams von vorn bis hinten durchschauen wollt, gibt es hier
 * Mi 2019-12-04: [Tag 4](https://youtu.be/-llJ5Cq_PQM) („Passwörter“ aus Ziffern mit Gültigkeitsregeln)
 * Do 2019-12-05: [Tag 5](https://youtu.be/-ISgDEmrbLs) (Intcode-Erweiterungen: Parameter-Modus „Immediate“, Jump, Compare)
 * Fr 2019-12-06: [Tag 6](https://youtu.be/6JJ8ZTOlPCI) (Graphtraversierung bzw. „Orbitaltransfers“)
+* Sa 2019-12-07: [Tag 7](https://youtu.be/AuqY50f1rAU) (Verkettung von Intcode-Maschinen, Warten auf Input)
 
 ## Advent of Code 2018
 
