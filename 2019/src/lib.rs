@@ -2,11 +2,20 @@ use std::convert::TryInto;
 use std::io::{self, BufRead, BufReader};
 use itertools::Itertools;
 
+#[derive(Clone,Copy,PartialEq)]
+pub enum MachineState {
+    Ready,
+    Running,
+    Done,
+    Waiting,
+}
+
 pub struct IntcodeMachine {
     program: Vec<i32>,
     ip: usize,
     input: Vec<i32>,
     output: Option<i32>,
+    state: MachineState,
 }
 
 impl IntcodeMachine {
@@ -16,6 +25,7 @@ impl IntcodeMachine {
             ip: 0,
             input: vec![],
             output: None,
+            state: MachineState::Ready,
         }
     }
 
@@ -36,7 +46,8 @@ impl IntcodeMachine {
         self.output.unwrap()
     }
 
-    pub fn compute(&mut self) {
+    pub fn compute(&mut self) -> MachineState {
+        self.state = MachineState::Running;
         loop {
             let opvalue = OpValue::new(self.program[self.ip]);
             match opvalue.opcode {
@@ -51,7 +62,11 @@ impl IntcodeMachine {
                 99 => break,
                 _ => panic!("unknown opcode {:?} at position {}", opvalue.opcode, self.ip),
             }
+            if self.state == MachineState::Waiting {
+                return self.state;
+            }
         }
+        MachineState::Done
     }
 
     pub fn get_program(&self) -> String {
@@ -89,6 +104,10 @@ impl IntcodeMachine {
     }
 
     fn input(&mut self) {
+        if self.input.len() == 0 {
+            self.state = MachineState::Waiting;
+            return;
+        }
         let params = self.fetch_params(1);
         self.program[params[0] as usize] = self.input.remove(0);
     }
