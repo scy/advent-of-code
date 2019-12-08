@@ -1,0 +1,5 @@
+More information: https://github.com/scy/advent-of-code
+
+Ich löse zusammen mit Leuten aus dem Chat zwei Programmieraufgaben aus dem Advent of Code 2019, in Rust. Bin erfahrener Coder, aber Rust ist sehr neu für mich.
+
+Discord: https://discord.gg/GVqzyEV
