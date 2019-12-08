@@ -28,6 +28,10 @@ impl IntcodeMachine {
         self.input = input;
     }
 
+    pub fn push_input(&mut self, input: i32) {
+        self.input.push(input);
+    }
+
     pub fn get_output(&self) -> i32 {
         self.output.unwrap()
     }
