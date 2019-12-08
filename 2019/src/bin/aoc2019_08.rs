@@ -2,6 +2,7 @@ use std::convert::TryInto;
 use std::io::{self, BufRead, BufReader};
 use itertools::Itertools;
 
+#[derive(Clone)]
 struct Row {
     pixels: Vec<u8>,
 }
@@ -11,13 +12,40 @@ struct Layer {
 }
 
 impl Layer {
+    fn new(width: usize, height: usize) -> Layer {
+        Layer { rows: vec![Row { pixels: vec![2; width] }; height] }
+    }
+
     fn count_digits(&self, digit: u8) -> usize {
         self.rows.iter().map(|row| row.pixels.iter().filter(|&&p| p == digit).count()).sum()
+    }
+
+    fn get_pixel(&self, x: usize, y: usize) -> u8 {
+        self.rows[y].pixels[x]
+    }
+
+    fn set_pixel(&mut self, x: usize, y: usize, digit: u8) {
+        self.rows[y].pixels[x] = digit;
+    }
+
+    fn print(&self) {
+        for row in self.rows.iter() {
+            println!("{}", row.pixels.iter().map(|digit| {
+                match digit {
+                    0 => ' ',
+                    1 => '█',
+                    2 => '▒',
+                    _ => panic!("Invalid pixel value {}", digit),
+                }
+            }).collect::<String>());
+        }
     }
 }
 
 struct Image {
     layers: Vec<Layer>,
+    width: usize,
+    height: usize,
 }
 
 impl Image {
@@ -25,7 +53,7 @@ impl Image {
         let len = input.len();
         let num_layers = len / (width * height);
         let mut chars = input.chars();
-        let mut image = Image { layers: vec![] };
+        let mut image = Image { layers: vec![], width, height };
         for _ in 0..num_layers {
             let mut layer = Layer { rows: vec![] };
             for _ in 0..height {
@@ -65,6 +93,21 @@ impl Image {
         }
         found_layer.unwrap()
     }
+
+    fn flatten(&self) -> Layer {
+        let mut result = Layer::new(self.width, self.height);
+        for layer in self.layers.iter().rev() {
+            for y in 0..self.height {
+                for x in 0..self.width {
+                    let digit = layer.get_pixel(x, y);
+                    if digit != 2 {
+                        result.set_pixel(x, y, digit);
+                    }
+                }
+            }
+        }
+        result
+    }
 }
 
 fn main() {
@@ -72,6 +115,8 @@ fn main() {
     let layer = image.get_layer_with_fewest(0);
 
     println!("Checksum (1 digits multiplied by 2 digits): {}", layer.count_digits(1) * layer.count_digits(2));
+
+    image.flatten().print();
 }
 
 #[test]
