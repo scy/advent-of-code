@@ -2,6 +2,8 @@ use std::convert::TryInto;
 use std::io::{self, BufRead, BufReader};
 use itertools::Itertools;
 
+pub type Value = i64;
+
 #[derive(Clone,Copy,PartialEq)]
 pub enum MachineState {
     Ready,
@@ -11,17 +13,17 @@ pub enum MachineState {
 }
 
 pub struct IntcodeMachine {
-    program: Vec<i32>,
+    memory: Vec<Value>,
     ip: usize,
-    input: Vec<i32>,
-    output: Option<i32>,
+    input: Vec<Value>,
+    output: Option<Value>,
     state: MachineState,
 }
 
 impl IntcodeMachine {
     pub fn from_string(input: &str) -> Self {
         Self {
-            program: input.split(',').map(|num| num.parse::<i32>().unwrap()).collect(),
+            memory: input.split(',').map(|num| num.parse::<Value>().unwrap()).collect(),
             ip: 0,
             input: vec![],
             output: None,
@@ -34,22 +36,22 @@ impl IntcodeMachine {
         Self::from_string(&buffered.lines().map(|line| line.unwrap()).join(","))
     }
 
-    pub fn set_input(&mut self, input: Vec<i32>) {
+    pub fn set_input(&mut self, input: Vec<Value>) {
         self.input = input;
     }
 
-    pub fn push_input(&mut self, input: i32) {
+    pub fn push_input(&mut self, input: Value) {
         self.input.push(input);
     }
 
-    pub fn get_output(&self) -> i32 {
+    pub fn get_output(&self) -> Value {
         self.output.unwrap()
     }
 
     pub fn compute(&mut self) -> MachineState {
         self.state = MachineState::Running;
         loop {
-            let opvalue = OpValue::new(self.program[self.ip]);
+            let opvalue = OpValue::new(self.memory[self.ip]);
             match opvalue.opcode {
                 1 => self.add(&opvalue),
                 2 => self.mul(&opvalue),
@@ -69,23 +71,23 @@ impl IntcodeMachine {
         MachineState::Done
     }
 
-    pub fn get_program(&self) -> String {
-        self.program.iter().map(|x| x.to_string()).join(",")
+    pub fn get_memory(&self) -> String {
+        self.memory.iter().map(|x| x.to_string()).join(",")
     }
 
-    fn fetch_params(&mut self, count: usize) -> Vec<i32> {
+    fn fetch_params(&mut self, count: usize) -> Vec<Value> {
         self.ip += 1;
-        let result = self.program[self.ip..(self.ip+count)].to_vec();
+        let result = self.memory[self.ip..(self.ip+count)].to_vec();
         self.ip += count;
         result
     }
 
-    fn resolve_position_params(&self, params: &[i32], opvalue: &OpValue) -> Vec<i32> {
+    fn resolve_position_params(&self, params: &[Value], opvalue: &OpValue) -> Vec<Value> {
         let mut result = vec![];
         for (idx, param) in params.iter().enumerate() {
             result.push(match opvalue.param_mode(idx) {
                 ParamMode::Immediate => *param,
-                ParamMode::Position => self.program[*param as usize],
+                ParamMode::Position => self.memory[*param as usize],
             });
         }
         result
@@ -94,13 +96,13 @@ impl IntcodeMachine {
     fn add(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(3);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.program[params[2] as usize] = resolved_params[0] + resolved_params[1];
+        self.memory[params[2] as usize] = resolved_params[0] + resolved_params[1];
     }
 
     fn mul(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(3);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.program[params[2] as usize] = resolved_params[0] * resolved_params[1];
+        self.memory[params[2] as usize] = resolved_params[0] * resolved_params[1];
     }
 
     fn input(&mut self) {
@@ -109,7 +111,7 @@ impl IntcodeMachine {
             return;
         }
         let params = self.fetch_params(1);
-        self.program[params[0] as usize] = self.input.remove(0);
+        self.memory[params[0] as usize] = self.input.remove(0);
     }
 
     fn output(&mut self, opvalue: &OpValue) {
@@ -137,13 +139,13 @@ impl IntcodeMachine {
     fn less_than(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(3);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.program[params[2] as usize] = if resolved_params[0] < resolved_params[1] { 1 } else { 0 };
+        self.memory[params[2] as usize] = if resolved_params[0] < resolved_params[1] { 1 } else { 0 };
     }
 
     fn equals(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(3);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.program[params[2] as usize] = if resolved_params[0] == resolved_params[1] { 1 } else { 0 };
+        self.memory[params[2] as usize] = if resolved_params[0] == resolved_params[1] { 1 } else { 0 };
     }
 }
 
@@ -160,7 +162,7 @@ pub struct OpValue {
 }
 
 impl OpValue {
-    fn new(value: i32) -> Self {
+    fn new(value: Value) -> Self {
         let opcode = (value % 100).try_into().unwrap();
         let mut param_modes: Vec<ParamMode> = (value / 100).to_string().chars().map(|d| match d {
             '0' => ParamMode::Position,
@@ -183,7 +185,7 @@ impl OpValue {
 #[test]
 fn test_string_parse() {
     let machine = IntcodeMachine::from_string("1,2,3");
-    assert_eq!(machine.program, vec![1,2,3]);
+    assert_eq!(machine.memory, vec![1,2,3]);
 }
 
 #[test]
@@ -202,12 +204,12 @@ fn test_opvalue_default_param_mode() {
 fn test_add() {
     let mut machine = IntcodeMachine::from_string("1001,1,14,3,99");
     machine.compute();
-    assert_eq!(machine.program, vec![1001,1,14,15,99]);
+    assert_eq!(machine.memory, vec![1001,1,14,15,99]);
 }
 
 #[test]
 fn test_day2() {
     let mut machine = IntcodeMachine::from_string("1,9,10,3,2,3,11,0,99,30,40,50");
     machine.compute();
-    assert_eq!(machine.program, vec![3500,9,10,70,2,3,11,0,99,30,40,50]);
+    assert_eq!(machine.memory, vec![3500,9,10,70,2,3,11,0,99,30,40,50]);
 }

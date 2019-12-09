@@ -1,8 +1,8 @@
 use std::error::Error;
-use aoc2019::{IntcodeMachine,MachineState};
+use aoc2019::{IntcodeMachine,MachineState,Value};
 use itertools::Itertools;
 
-fn find_best_phase_setting(run: fn(&IntcodeMachine, &Vec<i32>) -> i32, range: std::ops::Range<i32>, template: &IntcodeMachine) -> (i32, Vec<i32>) {
+fn find_best_phase_setting(run: fn(&IntcodeMachine, &Vec<Value>) -> Value, range: std::ops::Range<Value>, template: &IntcodeMachine) -> (Value, Vec<Value>) {
     let mut max = 0;
     let mut best_phase_setting = vec![];
     for perm in range.permutations(5) {
@@ -15,10 +15,10 @@ fn find_best_phase_setting(run: fn(&IntcodeMachine, &Vec<i32>) -> i32, range: st
     (max, best_phase_setting)
 }
 
-fn run_chain(template: &IntcodeMachine, phase_settings: &Vec<i32>) -> i32 {
+fn run_chain(template: &IntcodeMachine, phase_settings: &Vec<Value>) -> Value {
     let mut previous_output = 0;
     for phase in phase_settings {
-        let mut amplifier = IntcodeMachine::from_string(&template.get_program());
+        let mut amplifier = IntcodeMachine::from_string(&template.get_memory());
         amplifier.set_input(vec![*phase, previous_output]);
         amplifier.compute();
         previous_output = amplifier.get_output();
@@ -26,10 +26,10 @@ fn run_chain(template: &IntcodeMachine, phase_settings: &Vec<i32>) -> i32 {
     previous_output
 }
 
-fn run_chain_feedback(template: &IntcodeMachine, phase_settings: &Vec<i32>) -> i32 {
+fn run_chain_feedback(template: &IntcodeMachine, phase_settings: &Vec<Value>) -> Value {
     let mut amplifiers = vec![];
     for phase in phase_settings {
-        let mut amplifier = IntcodeMachine::from_string(&template.get_program());
+        let mut amplifier = IntcodeMachine::from_string(&template.get_memory());
         amplifier.push_input(*phase);
         amplifiers.push(amplifier);
     }
