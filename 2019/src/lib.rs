@@ -78,7 +78,7 @@ impl IntcodeMachine {
             match opvalue.opcode {
                 1 => self.add(&opvalue),
                 2 => self.mul(&opvalue),
-                3 => self.input(),
+                3 => self.input(&opvalue),
                 4 => self.output(&opvalue),
                 5 => self.jump_if_true(&opvalue),
                 6 => self.jump_if_false(&opvalue),
@@ -110,6 +110,14 @@ impl IntcodeMachine {
         result
     }
 
+    pub fn set_memory(&mut self, param_mode: ParamMode, address: Value, value: Value) {
+        self.memory.insert(match param_mode {
+            ParamMode::Position => address as Address,
+            ParamMode::Relative => (address + (self.relative_base as i64)) as Address,
+            _ => panic!("set_memory not implemented for param mode {:?}", param_mode),
+        }, value);
+    }
+
     fn fetch_params(&mut self, count: Address) -> Vec<Value> {
         self.ip += 1;
         let result = self.get_memory_vec(self.ip..(self.ip+count));
@@ -132,22 +140,23 @@ impl IntcodeMachine {
     fn add(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(3);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.memory.insert(params[2] as Address, resolved_params[0] + resolved_params[1]);
+        self.set_memory(opvalue.param_mode(2), params[2], resolved_params[0] + resolved_params[1]);
     }
 
     fn mul(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(3);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.memory.insert(params[2] as Address, resolved_params[0] * resolved_params[1]);
+        self.set_memory(opvalue.param_mode(2), params[2], resolved_params[0] * resolved_params[1]);
     }
 
-    fn input(&mut self) {
+    fn input(&mut self, opvalue: &OpValue) {
         if self.input.len() == 0 {
             self.state = MachineState::Waiting;
             return;
         }
         let params = self.fetch_params(1);
-        self.memory.insert(params[0] as Address, self.input.remove(0));
+        let input = self.input.remove(0);
+        self.set_memory(opvalue.param_mode(0), params[0], input);
     }
 
     fn output(&mut self, opvalue: &OpValue) {
@@ -175,13 +184,13 @@ impl IntcodeMachine {
     fn less_than(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(3);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.memory.insert(params[2] as Address, if resolved_params[0] < resolved_params[1] { 1 } else { 0 });
+        self.set_memory(opvalue.param_mode(2), params[2], if resolved_params[0] < resolved_params[1] { 1 } else { 0 });
     }
 
     fn equals(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(3);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.memory.insert(params[2] as Address, if resolved_params[0] == resolved_params[1] { 1 } else { 0 });
+        self.set_memory(opvalue.param_mode(2), params[2], if resolved_params[0] == resolved_params[1] { 1 } else { 0 });
     }
 
     fn set_relative_base(&mut self, opvalue: &OpValue) {
@@ -285,4 +294,11 @@ fn test_day9_long_number() {
     let mut machine = IntcodeMachine::from_string("104,1125899906842624,99");
     machine.compute();
     assert_eq!(machine.get_output(), 1125899906842624);
+}
+
+#[test]
+fn test_write_to_relative() {
+    let mut machine = IntcodeMachine::from_string("109,5,21101,5,23,14,99");
+    machine.compute();
+    assert_eq!(machine.get_memory_vec(0..20), vec![109,5,21101,5,23,14,99,0,0,0,0,0,0,0,0,0,0,0,0,28]);
 }
