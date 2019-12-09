@@ -21,7 +21,7 @@ pub struct IntcodeMachine {
     ip: Address,
     relative_base: Address,
     input: Vec<Value>,
-    output: Option<Value>,
+    output: Vec<Value>,
     state: MachineState,
 }
 
@@ -38,7 +38,7 @@ impl IntcodeMachine {
             ip: 0,
             relative_base: 0,
             input: vec![],
-            output: None,
+            output: vec![],
             state: MachineState::Ready,
         }
     }
@@ -56,14 +56,25 @@ impl IntcodeMachine {
         self.input.push(input);
     }
 
+    pub fn get_outputs(&self) -> Vec<Value> {
+        self.output.clone()
+    }
+
     pub fn get_output(&self) -> Value {
-        self.output.unwrap()
+        let output = self.get_outputs();
+        if output.len() < 1 {
+            panic!("There was no output!");
+        }
+        if output.len() > 1 {
+            panic!("There was more than one output!");
+        }
+        self.output[0]
     }
 
     pub fn compute(&mut self) -> MachineState {
         self.state = MachineState::Running;
         loop {
-            let opvalue = OpValue::new(*self.memory.get(&self.ip).unwrap());
+            let opvalue = OpValue::new(self.get_memory(self.ip));
             match opvalue.opcode {
                 1 => self.add(&opvalue),
                 2 => self.mul(&opvalue),
@@ -84,10 +95,17 @@ impl IntcodeMachine {
         MachineState::Done
     }
 
+    pub fn get_memory(&self, address: Address) -> Value {
+        match self.memory.get(&address) {
+            Some(value) => *value,
+            None => 0,
+        }
+    }
+
     pub fn get_memory_vec(&self, range: Range<Address>) -> Vec<Value> {
         let mut result = vec![];
         for idx in range {
-            result.push(*self.memory.get(&idx).unwrap());
+            result.push(self.get_memory(idx));
         }
         result
     }
@@ -104,8 +122,8 @@ impl IntcodeMachine {
         for (idx, param) in params.iter().enumerate() {
             result.push(match opvalue.param_mode(idx) {
                 ParamMode::Immediate => *param,
-                ParamMode::Position => *self.memory.get(&(*param as Address)).unwrap(),
-                ParamMode::Relative => *self.memory.get(&((*param + (self.relative_base as i64)) as Address)).unwrap(),
+                ParamMode::Position => self.get_memory(*param as Address),
+                ParamMode::Relative => self.get_memory((*param + (self.relative_base as i64)) as Address),
             });
         }
         result
@@ -135,7 +153,7 @@ impl IntcodeMachine {
     fn output(&mut self, opvalue: &OpValue) {
         let params = self.fetch_params(1);
         let resolved_params = self.resolve_position_params(&params, &opvalue);
-        self.output = Some(resolved_params[0]);
+        self.output.push(resolved_params[0]);
     }
 
     fn jump_if_true(&mut self, opvalue: &OpValue) {
@@ -246,6 +264,13 @@ fn test_relative_mode() {
     machine.relative_base = 2000;
     machine.compute();
     assert_eq!(machine.get_output(), 109);
+}
+
+#[test]
+fn test_day9_quine() {
+    let mut machine = IntcodeMachine::from_string("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99");
+    machine.compute();
+    assert_eq!(machine.get_outputs(), vec![109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99]);
 }
 
 #[test]
