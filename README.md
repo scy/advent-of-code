@@ -47,7 +47,7 @@ Mein Plan ist:
 ### 📅 Streamkalender 📅
 
 * **Di 2019-12-10 18:00:** [Tag 10](https://youtu.be/TjcIJJKWxKU)
-* **Mi 2019-12-11 18:00:** Tag 11
+* **Mi 2019-12-11 15:00:** Tag 11
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
 
