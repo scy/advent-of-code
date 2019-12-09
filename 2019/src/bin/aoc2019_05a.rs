@@ -14,7 +14,7 @@ fn test_input() {
     let mut machine = IntcodeMachine::from_string("3,0,99");
     machine.set_input(vec![23]);
     machine.compute();
-    assert_eq!(machine.get_memory(), "23,0,99");
+    assert_eq!(machine.get_memory_vec(0..3), vec![23,0,99]);
 }
 
 #[test]

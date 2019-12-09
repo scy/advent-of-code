@@ -18,7 +18,7 @@ fn find_best_phase_setting(run: fn(&IntcodeMachine, &Vec<Value>) -> Value, range
 fn run_chain(template: &IntcodeMachine, phase_settings: &Vec<Value>) -> Value {
     let mut previous_output = 0;
     for phase in phase_settings {
-        let mut amplifier = IntcodeMachine::from_string(&template.get_memory());
+        let mut amplifier = template.clone();
         amplifier.set_input(vec![*phase, previous_output]);
         amplifier.compute();
         previous_output = amplifier.get_output();
@@ -29,7 +29,7 @@ fn run_chain(template: &IntcodeMachine, phase_settings: &Vec<Value>) -> Value {
 fn run_chain_feedback(template: &IntcodeMachine, phase_settings: &Vec<Value>) -> Value {
     let mut amplifiers = vec![];
     for phase in phase_settings {
-        let mut amplifier = IntcodeMachine::from_string(&template.get_memory());
+        let mut amplifier = template.clone();
         amplifier.push_input(*phase);
         amplifiers.push(amplifier);
     }
