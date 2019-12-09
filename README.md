@@ -39,15 +39,14 @@ Aus diesem Grund sind in diesem Repository die Dokumentation und Ankündigungen,
 Endlich ist Dezember, der Advent of Code hat wieder angefangen!
 Mein Plan ist:
 
-* Jeden Tag ein Stream auf YouTube, üblicherweise um 19:30 Uhr, an manchen Tagen wegen Terminen zu anderen Uhrzeiten.
+* Jeden Tag ein Stream auf YouTube.
 * Dieses Jahr programmiere ich in **[Rust](https://www.rust-lang.org/)**. Ich bin totaler Newbie und hatte bis November noch keine Zeile Code darin geschrieben. Es gab Vorab-Streams, in denen ich Rust aufgesetzt habe und [Rust by Example](https://doc.rust-lang.org/rust-by-example/) ein Stück weit durchgearbeitet, siehe [vergangene Streams](#vergangene-streams).
 * Aktuelle Ankündigungen und die Möglichkeit, miteinander zu quatschen, gibt’s in [unserer Discord-Community](https://discord.gg/GVqzyEV); alternativ auf Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy)) und Twitter ([@scy](https://twitter.com/scy)).
 * Abonniert [meinen YouTube-Kanal](https://www.youtube.com/channel/UC2a5Ca5tgel0Ebq5ZgeUbRA) und aktiviert die Glocke, um benachrichtigt zu werden.
 
 ### 📅 Streamkalender 📅
 
-* **So 2019-12-08 16:00:** [Tag 8](https://youtu.be/3pbzOg2QCTc)
-* **Mo 2019-12-09 16:30:** Tag 9
+* **Mo 2019-12-09 16:30:** [Tag 9](https://youtu.be/L_rm1t1ZtOI)
 * **Di 2019-12-10 18:00:** Tag 10
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
@@ -68,6 +67,7 @@ Wenn ihr die 2019er Streams von vorn bis hinten durchschauen wollt, gibt es hier
 * Do 2019-12-05: [Tag 5](https://youtu.be/-ISgDEmrbLs) (Intcode-Erweiterungen: Parameter-Modus „Immediate“, Jump, Compare)
 * Fr 2019-12-06: [Tag 6](https://youtu.be/6JJ8ZTOlPCI) (Graphtraversierung bzw. „Orbitaltransfers“)
 * Sa 2019-12-07: [Tag 7](https://youtu.be/AuqY50f1rAU) (Verkettung von Intcode-Maschinen, Warten auf Input)
+* So 2019-12-08: [Tag 8](https://youtu.be/3pbzOg2QCTc) (Passwort-Bild aus teils transparenten Layern)
 
 ## Advent of Code 2018
 
