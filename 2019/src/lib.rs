@@ -19,6 +19,7 @@ pub enum MachineState {
 pub struct IntcodeMachine {
     memory: HashMap<Address, Value>,
     ip: Address,
+    relative_base: Address,
     input: Vec<Value>,
     output: Option<Value>,
     state: MachineState,
@@ -35,6 +36,7 @@ impl IntcodeMachine {
                 hashmap
             },
             ip: 0,
+            relative_base: 0,
             input: vec![],
             output: None,
             state: MachineState::Ready,
@@ -71,6 +73,7 @@ impl IntcodeMachine {
                 6 => self.jump_if_false(&opvalue),
                 7 => self.less_than(&opvalue),
                 8 => self.equals(&opvalue),
+                9 => self.set_relative_base(&opvalue),
                 99 => break,
                 _ => panic!("unknown opcode {:?} at position {}", opvalue.opcode, self.ip),
             }
@@ -102,6 +105,7 @@ impl IntcodeMachine {
             result.push(match opvalue.param_mode(idx) {
                 ParamMode::Immediate => *param,
                 ParamMode::Position => *self.memory.get(&(*param as Address)).unwrap(),
+                ParamMode::Relative => *self.memory.get(&((*param + (self.relative_base as i64)) as Address)).unwrap(),
             });
         }
         result
@@ -161,12 +165,19 @@ impl IntcodeMachine {
         let resolved_params = self.resolve_position_params(&params, &opvalue);
         self.memory.insert(params[2] as Address, if resolved_params[0] == resolved_params[1] { 1 } else { 0 });
     }
+
+    fn set_relative_base(&mut self, opvalue: &OpValue) {
+        let params = self.fetch_params(1);
+        let resolved_params = self.resolve_position_params(&params, &opvalue);
+        self.relative_base = ((self.relative_base as i64) + resolved_params[0]).try_into().unwrap();
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum ParamMode {
     Position,
     Immediate,
+    Relative,
 }
 
 #[derive(Debug, PartialEq)]
@@ -181,6 +192,7 @@ impl OpValue {
         let mut param_modes: Vec<ParamMode> = (value / 100).to_string().chars().map(|d| match d {
             '0' => ParamMode::Position,
             '1' => ParamMode::Immediate,
+            '2' => ParamMode::Relative,
             _ => unimplemented!(),
         }).collect();
         param_modes.reverse();
@@ -226,4 +238,26 @@ fn test_day2() {
     let mut machine = IntcodeMachine::from_string("1,9,10,3,2,3,11,0,99,30,40,50");
     machine.compute();
     assert_eq!(machine.get_memory_vec(0..12), vec![3500,9,10,70,2,3,11,0,99,30,40,50]);
+}
+
+#[test]
+fn test_relative_mode() {
+    let mut machine = IntcodeMachine::from_string("109,19,204,-2019,99");
+    machine.relative_base = 2000;
+    machine.compute();
+    assert_eq!(machine.get_output(), 109);
+}
+
+#[test]
+fn test_day9_16digit() {
+    let mut machine = IntcodeMachine::from_string("1102,34915192,34915192,7,4,7,99,0");
+    machine.compute();
+    assert_eq!(machine.get_output().to_string().len(), 16);
+}
+
+#[test]
+fn test_day9_long_number() {
+    let mut machine = IntcodeMachine::from_string("104,1125899906842624,99");
+    machine.compute();
+    assert_eq!(machine.get_output(), 1125899906842624);
 }
