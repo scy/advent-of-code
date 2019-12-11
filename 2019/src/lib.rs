@@ -60,6 +60,10 @@ impl IntcodeMachine {
         self.output.clone()
     }
 
+    pub fn get_outputs_and_clear(&mut self) -> Vec<Value> {
+        self.output.drain(0..).collect()
+    }
+
     pub fn get_output(&self) -> Value {
         let output = self.get_outputs();
         if output.len() < 1 {
