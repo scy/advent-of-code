@@ -60,10 +60,39 @@ impl Robot {
 
     fn advance(&mut self) {
         self.position = self.position + match self.direction {
-            Direction::Up => (0,1),
+            Direction::Up => (0,-1),
             Direction::Left => (-1,0),
-            Direction::Down => (0,-1),
+            Direction::Down => (0,1),
             Direction::Right => (1,0),
+        }
+    }
+
+    fn run(&mut self, hull: &mut Hull, machine: &mut IntcodeMachine) {
+        loop {
+            machine.push_input(match hull.color_at(self.position) {
+                Color::Black => 0,
+                Color::White => 1,
+            });
+            match machine.compute() {
+                MachineState::Done => break,
+                MachineState::Waiting => {
+                    let output = machine.get_outputs_and_clear();
+                    if output.len() != 2 {
+                        panic!("Unexpected robot output length {}", output.len());
+                    }
+                    hull.set_color_at(self.position, match output[0] {
+                        0 => Color::Black,
+                        1 => Color::White,
+                        _ => panic!("Unexpected color output {}", output[0]),
+                    });
+                    match output[1] {
+                        0 => self.advance_left(),
+                        1 => self.advance_right(),
+                        _ => panic!("Unexpected direction output {}", output[1]),
+                    }
+                }
+                _ => unimplemented!(),
+            }
         }
     }
 }
@@ -93,12 +122,12 @@ impl Hull {
         *self.panels.get(&pos).unwrap_or(&Color::Black)
     }
 
-    fn set_color_at(&mut self, pos: &Position, color: &Color) {
+    fn set_color_at(&mut self, pos: Position, color: Color) {
         if pos.0 < self.min_x { self.min_x = pos.0; }
         if pos.0 > self.max_x { self.max_x = pos.0; }
         if pos.1 < self.min_y { self.min_y = pos.1; }
         if pos.1 > self.max_y { self.max_y = pos.1; }
-        self.panels.insert(*pos, *color);
+        self.panels.insert(pos, color);
     }
 
     fn count_painted(&self) -> usize {
@@ -110,8 +139,8 @@ impl Hull {
             let mut line = String::new();
             for x in self.min_x..=self.max_x {
                 line.push(match self.color_at(Position(x, y)) {
-                    Color::Black => '.',
-                    Color::White => '#',
+                    Color::Black => ' ',
+                    Color::White => '█',
                 });
             }
             println!("{}", line);
@@ -122,36 +151,20 @@ impl Hull {
 
 fn main() {
     let mut machine = IntcodeMachine::from_stdin();
+    let mut machine_b = machine.clone();
     let mut hull = Hull::new();
     let mut robot = Robot { position: Position(0,0), direction: Direction::Up };
 
-    loop {
-        machine.push_input(match hull.color_at(robot.position) {
-            Color::Black => 0,
-            Color::White => 1,
-        });
-        match machine.compute() {
-            MachineState::Done => break,
-            MachineState::Waiting => {
-                let output = machine.get_outputs_and_clear();
-                if output.len() != 2 {
-                    panic!("Unexpected robot output length {}", output.len());
-                }
-                hull.set_color_at(&robot.position, match output[0] {
-                    0 => &Color::Black,
-                    1 => &Color::White,
-                    _ => panic!("Unexpected color output {}", output[0]),
-                });
-                match output[1] {
-                    0 => robot.advance_left(),
-                    1 => robot.advance_right(),
-                    _ => panic!("Unexpected direction output {}", output[1]),
-                }
-            }
-            _ => unimplemented!(),
-        }
-    }
+    robot.run(&mut hull, &mut machine);
+
     println!("The robot would paint {} panels like this:", hull.count_painted());
     hull.print();
 
+    hull = Hull::new();
+    hull.set_color_at(robot.position, Color::White);
+
+    robot.run(&mut hull, &mut machine_b);
+
+    println!("When starting at a white square, the result looks like this:");
+    hull.print();
 }
