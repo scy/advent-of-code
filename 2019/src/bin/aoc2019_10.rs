@@ -35,7 +35,7 @@ impl Map {
         map
     }
 
-    fn from_string(input: &str) -> Map{
+    fn from_string(input: &str) -> Map {
         let mut map = Map { asteroids: vec![] };
         for (y, line) in input.trim().lines().enumerate() {
             map.read_line(y.try_into().unwrap(), line);
@@ -61,7 +61,7 @@ impl Map {
             let angle = observer.angle_to(&block_candidate);
             let distance = observer.distance_to(&block_candidate);
             //if debug { println!("    Candidate {:?} angle: {}, distance: {}", block_candidate, angle, distance); }
-            if ((observer.angle_to(&block_candidate) == dest_angle) && (distance < dest_distance)) && distance > 0.0  {
+            if ((angle == dest_angle) && (distance < dest_distance)) && distance > 0.0  {
                 //if debug { println!("Asteroid {:?} blocks view from {:?} to {:?}", block_candidate, observer, observing); }
                 return false
             }
