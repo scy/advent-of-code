@@ -76,23 +76,46 @@ enum Color {
 }
 
 
-struct Hull(HashMap<Position, Color>);
+struct Hull {
+    panels: HashMap<Position, Color>,
+    min_x: i32,
+    max_x: i32,
+    min_y: i32,
+    max_y: i32,
+}
 
 impl Hull {
     fn new() -> Self {
-        Hull(HashMap::new())
+        Hull { panels: HashMap::new(), min_x: 0, max_x: 0, min_y:0, max_y: 0 }
     }
 
     fn color_at(&self, pos: Position) -> Color {
-        *self.0.get(&pos).unwrap_or(&Color::Black)
+        *self.panels.get(&pos).unwrap_or(&Color::Black)
     }
 
     fn set_color_at(&mut self, pos: &Position, color: &Color) {
-        self.0.insert(*pos, *color);
+        if pos.0 < self.min_x { self.min_x = pos.0; }
+        if pos.0 > self.max_x { self.max_x = pos.0; }
+        if pos.1 < self.min_y { self.min_y = pos.1; }
+        if pos.1 > self.max_y { self.max_y = pos.1; }
+        self.panels.insert(*pos, *color);
     }
 
     fn count_painted(&self) -> usize {
-        self.0.len()
+        self.panels.len()
+    }
+
+    fn print(&self) {
+        for y in self.min_y..=self.max_y {
+            let mut line = String::new();
+            for x in self.min_x..=self.max_x {
+                line.push(match self.color_at(Position(x, y)) {
+                    Color::Black => '.',
+                    Color::White => '#',
+                });
+            }
+            println!("{}", line);
+        }
     }
 }
 
@@ -128,5 +151,7 @@ fn main() {
             _ => unimplemented!(),
         }
     }
-    println!("The robot would paint {} panels.", hull.count_painted());
+    println!("The robot would paint {} panels like this:", hull.count_painted());
+    hull.print();
+
 }
