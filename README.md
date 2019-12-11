@@ -46,8 +46,8 @@ Mein Plan ist:
 
 ### 📅 Streamkalender 📅
 
-* **Di 2019-12-10 18:00:** [Tag 10](https://youtu.be/TjcIJJKWxKU)
-* **Mi 2019-12-11 15:00:** Tag 11
+* **Mi 2019-12-11 15:00:** [Tag 11](https://youtu.be/Q9Zy0lyZo7E)
+* **Do 2019-12-12 17:30:** Tag 12
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
 
@@ -69,6 +69,7 @@ Wenn ihr die 2019er Streams von vorn bis hinten durchschauen wollt, gibt es hier
 * Sa 2019-12-07: [Tag 7](https://youtu.be/AuqY50f1rAU) (Verkettung von Intcode-Maschinen, Warten auf Input)
 * So 2019-12-08: [Tag 8](https://youtu.be/3pbzOg2QCTc) (Passwort-Bild aus teils transparenten Layern)
 * Mo 2019-12-09: [Tag 9](https://youtu.be/L_rm1t1ZtOI) (Relative Adressierung und mehrere Outputs im Intcode)
+* Di 2019-12-10: [Tag 10](https://youtu.be/TjcIJJKWxKU) (Asteroiden: Sichtbarkeit und Abschuss im Uhrzeigersinn)
 
 ## Advent of Code 2018
 
