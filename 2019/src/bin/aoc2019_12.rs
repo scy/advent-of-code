@@ -122,7 +122,7 @@ impl Simulation {
     }
 
     fn do_steps(&mut self, count: u32) {
-        for step in 0..count {
+        for _ in 0..count {
             self.do_step();
         }
     }
