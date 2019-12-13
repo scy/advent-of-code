@@ -1,4 +1,6 @@
+use std::collections::HashMap;
 use std::io::{self, Read};
+use num::Integer;
 use regex::Regex;
 
 
@@ -77,6 +79,32 @@ impl Moon {
 }
 
 
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+struct AxisSnapshot {
+    positions: Vec<i32>,
+    velocities: Vec<i32>,
+}
+
+impl AxisSnapshot {
+    fn from_moons(moons: &Vec<Moon>) -> [Self;3] {
+        [
+            Self {
+                positions: moons.iter().map(|moon| moon.position.x).collect(),
+                velocities: moons.iter().map(|moon| moon.velocity.x).collect(),
+            },
+            Self {
+                positions: moons.iter().map(|moon| moon.position.y).collect(),
+                velocities: moons.iter().map(|moon| moon.velocity.y).collect(),
+            },
+            Self {
+                positions: moons.iter().map(|moon| moon.position.z).collect(),
+                velocities: moons.iter().map(|moon| moon.velocity.z).collect(),
+            },
+        ]
+    }
+}
+
+
 #[derive(Debug)]
 struct Simulation {
     moons: Vec<Moon>,
@@ -130,13 +158,38 @@ impl Simulation {
     fn total_energy(&self) -> u32 {
         self.moons.iter().map(|moon| moon.total_energy()).sum()
     }
+
+    fn find_repetition_steps(&mut self) -> u128 {
+        let mut axis_snapshots: [HashMap<AxisSnapshot, bool>; 3] = [HashMap::new(), HashMap::new(), HashMap::new()];
+        let mut steps = [0_u128; 3];
+        let mut running = 3;
+        for step in 0.. {
+            let snap = AxisSnapshot::from_moons(&self.moons);
+            for axis in 0..3 {
+                if steps[axis] != 0 { continue; } // we already know this axis’s periodicity
+                if let Some(_) = axis_snapshots[axis].insert(snap[axis].clone(), true) {
+                    // println!("Found duplicate snapshot for axis {} after {} steps!", axis, step);
+                    steps[axis] = step;
+                    running -= 1;
+                }
+            }
+            if running <= 0 {
+                break;
+            }
+            self.do_step();
+        }
+        steps[0].lcm(&steps[1].lcm(&steps[2]))
+    }
 }
 
 
 fn main() {
     let mut sim = Simulation::from_stdin();
+
     sim.do_steps(1000);
-    println!("Total energy after 1000 steps is {}", sim.total_energy());
+    println!("Total energy after 1000 steps is {}.", sim.total_energy());
+
+    println!("History repeats after {} steps.", sim.find_repetition_steps());
 }
 
 
