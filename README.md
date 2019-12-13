@@ -46,8 +46,8 @@ Mein Plan ist:
 
 ### 📅 Streamkalender 📅
 
-* **Do 2019-12-12 17:30:** [Tag 12](https://youtu.be/SAdv45uErnM)
-* **Fr 2019-12-13 17:00:** Tag 13
+* **Fr 2019-12-13 19:00:** [Tag 13](https://youtu.be/HpLr7USHiQQ)
+* **Sa 2019-12-14 21:00:** Tag 14
 
 *Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
 
@@ -71,6 +71,7 @@ Wenn ihr die 2019er Streams von vorn bis hinten durchschauen wollt, gibt es hier
 * Mo 2019-12-09: [Tag 9](https://youtu.be/L_rm1t1ZtOI) (Relative Adressierung und mehrere Outputs im Intcode)
 * Di 2019-12-10: [Tag 10](https://youtu.be/TjcIJJKWxKU) (Asteroiden: Sichtbarkeit und Abschuss im Uhrzeigersinn)
 * Mi 2019-12-11: [Tag 11](https://youtu.be/Q9Zy0lyZo7E) (Kennzeichen auf die Raumschiffhülle malen lassen)
+* Do 2019-12-12: [Tag 12](https://youtu.be/SAdv45uErnM) (Umlaufbahnen der Jupitermonde)
 
 ## Advent of Code 2018
 
