@@ -15,12 +15,12 @@ impl Chemical {
 
 #[derive(Clone, Debug, PartialEq)]
 struct ChemicalAmount {
-    amount: u32,
+    amount: u64,
     chemical: Chemical,
 }
 
 impl ChemicalAmount {
-    fn new(amount: u32, chemical: Chemical) -> Self {
+    fn new(amount: u64, chemical: Chemical) -> Self {
         Self { amount, chemical }
     }
 
@@ -28,7 +28,7 @@ impl ChemicalAmount {
         let parts: Vec<&str> = input.split(' ').collect();
         if parts.len() != 2 { panic!("Unexpected chemical/amount split: {} parts", parts.len()); }
         Self {
-            amount: parts[0].parse::<u32>().expect(&format!("Could not parse amount: {}", parts[0])),
+            amount: parts[0].parse::<u64>().expect(&format!("Could not parse amount: {}", parts[0])),
             chemical: Chemical::new(parts[1])
         }
     }
@@ -80,7 +80,7 @@ impl ReactionTable {
         match self.reactions.get(&result.chemical) {
             None => None,
             Some(reaction) => {
-                let factor = ((result.amount as f32) / (reaction.result.amount as f32)).ceil() as u32;
+                let factor = ((result.amount as f32) / (reaction.result.amount as f32)).ceil() as u64;
                 let leftover = (factor * reaction.result.amount) - result.amount;
                 if leftover >= reaction.result.amount {
                     panic!("For {:?}, {} units were requested, factor {} was determined, {} is left over.", result.chemical, result.amount, factor, leftover);
@@ -94,8 +94,14 @@ impl ReactionTable {
     }
 
     fn requirements(&self, result: ChemicalAmount) -> Vec<ChemicalAmount> {
-        let mut by_chemical: HashMap<Chemical, i32> = HashMap::new();
-        by_chemical.insert(result.chemical.clone(), result.amount.try_into().unwrap());
+        self.requirements_and_leftovers(result, &mut HashMap::new())
+    }
+
+    fn requirements_and_leftovers(&self, result: ChemicalAmount, leftovers: &mut HashMap<Chemical, i64>) -> Vec<ChemicalAmount> {
+        let mut by_chemical = leftovers;
+        by_chemical.entry(result.chemical.clone())
+            .and_modify(|entry| *entry += result.amount as i64)
+            .or_insert(result.amount as i64);
         let mut change: Option<(Vec<ChemicalAmount>, ChemicalAmount)>;
         loop {
             change = None;
@@ -112,16 +118,34 @@ impl ReactionTable {
             by_chemical.remove(&leftover.chemical);
             for requirement in requirements.iter() {
                 by_chemical.entry(requirement.clone().chemical)
-                    .and_modify(|entry| *entry += requirement.amount as i32)
+                    .and_modify(|entry| *entry += requirement.amount as i64)
                     .or_insert(requirement.amount.try_into().unwrap());
             }
             by_chemical.entry(leftover.clone().chemical)
-                .and_modify(|entry| *entry -= leftover.amount as i32)
-                .or_insert(0 - leftover.amount as i32);
+                .and_modify(|entry| *entry -= leftover.amount as i64)
+                .or_insert(0 - leftover.amount as i64);
             by_chemical.retain(|_, amount| *amount != 0);
             //println!("After step: {:?}", by_chemical);
         }
         by_chemical.iter().filter(|(_, &amount)| amount >= 0).map(|(chemical, amount)| ChemicalAmount::new((*amount).try_into().unwrap(), chemical.clone())).collect()
+    }
+
+    fn iterate_until_ore_amount(&self, ore_amount: u64) -> u64 {
+        let mut leftovers = HashMap::new();
+        let mut amount = 0;
+        loop {
+            let result = self.requirements_and_leftovers(ChemicalAmount::new(1, Chemical::new("FUEL")), &mut leftovers);
+            if result[0].amount > ore_amount {
+                return amount;
+            }
+            amount += 1;
+            if amount % 10_000 == 0 {
+                println!("{}", amount);
+            }
+            /*if amount > 470000 {
+                panic!("KARPOTT");
+            }*/
+        }
     }
 }
 
@@ -133,6 +157,8 @@ fn main() {
 
     println!("{:?}", table.requirements(ChemicalAmount::from_string("1 FUEL")));
     //println!("You need {} ORE for 1 FUEL.", table.requirements(ChemicalAmount::from_string("1 FUEL"))[0].amount);
+
+    assert_eq!(table.iterate_until_ore_amount(1000000000000), 460664);
 }
 
 
@@ -225,6 +251,7 @@ fn example_a5() {
         5 BHXH, 4 VRPVC => 5 LTCX
     ");
     assert_eq!(table.requirements(ChemicalAmount::from_string("1 FUEL")), vec![ChemicalAmount::from_string("2210736 ORE")]);
+    assert_eq!(table.iterate_until_ore_amount(1000000000000), 460664);
 }
 
 #[test]
