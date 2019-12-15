@@ -22,7 +22,7 @@ You can contact me on Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy))
 ## Worum geht’s?
 
 Dieses Git-Repository enthält meine Lösungen zu einigen Aufgaben („Puzzles“) aus dem [Advent of Code](https://adventofcode.com/), einem jährlich stattfindenden „Programmier-Adventskalender“.
-Jeden Tag erscheinen zwei neue Aufgaben (die zweite baut auf der ersten auf), die man in einer beliebigen Programmiersprache lösen kann.
+Jeden Tag im Dezember erscheinen zwei neue Aufgaben (die zweite baut auf der ersten auf), die man in einer beliebigen Programmiersprache lösen kann.
 Das nehme ich gern zum Anlass, um eine neue Sprache zu lernen oder meine Kenntnisse in anderen zu vertiefen.
 
 Im Dezember, wenn neue Puzzles rauskommen, mache ich üblicherweise Live-Videostreams, während ich sie löse.
@@ -36,19 +36,25 @@ Aus diesem Grund sind in diesem Repository die Dokumentation und Ankündigungen,
 
 ## ✨ Advent of Code 2019! ✨
 
-Endlich ist Dezember, der Advent of Code hat wieder angefangen!
-Mein Plan ist:
+Es ist Dezember; der Advent of Code ist in vollem Gange und ich habe vom 1. bis 14. jeden Tag einen Stream geschafft.
+Dieses Jahr habe ich in **[Rust](https://www.rust-lang.org/)** programmiert.
+Ich war totaler Newbie und hatte bis November noch keine Zeile Code darin geschrieben.
+Es gab Vorab-Streams, in denen ich Rust aufgesetzt habe und [Rust by Example](https://doc.rust-lang.org/rust-by-example/) ein Stück weit durchgearbeitet, siehe [vergangene Streams](#vergangene-streams).
 
-* Jeden Tag ein Stream auf YouTube.
-* Dieses Jahr programmiere ich in **[Rust](https://www.rust-lang.org/)**. Ich bin totaler Newbie und hatte bis November noch keine Zeile Code darin geschrieben. Es gab Vorab-Streams, in denen ich Rust aufgesetzt habe und [Rust by Example](https://doc.rust-lang.org/rust-by-example/) ein Stück weit durchgearbeitet, siehe [vergangene Streams](#vergangene-streams).
-* Aktuelle Ankündigungen und die Möglichkeit, miteinander zu quatschen, gibt’s in [unserer Discord-Community](https://discord.gg/GVqzyEV); alternativ auf Mastodon ([@scy@scy.name](https://mastodon.scy.name/@scy)) und Twitter ([@scy](https://twitter.com/scy)).
-* Abonniert [meinen YouTube-Kanal](https://www.youtube.com/channel/UC2a5Ca5tgel0Ebq5ZgeUbRA) und aktiviert die Glocke, um benachrichtigt zu werden.
+Leider fluktuiert der Zeitaufwand dieses Jahr massiv.
+Während 2018 alles in zwei Stunden lösbar war, sind dieses Jahr Streams mit vier Stunden oder mehr keine Seltenheit gewesen.
+Den Zeitaufwand kann ich aktuell nicht mehr stemmen, weshalb ich die Streams nach Tag 14 abgebrochen habe.
+Sorry dafür!
 
-### 📅 Streamkalender 📅
+Ich werde die nächsten Tage diese Readme noch ein bisschen aufräumen sowie die Stream-Aufzeichnungen auf YouTube ordentlich taggen und in ne Playlist packen.
+Außerdem werde ich einen angefangenen PeerTube-Mirror noch vervollständigen.
 
-* **Sa 2019-12-14 21:00:** [Tag 14](https://youtu.be/hIygbzwiUe0)
+Es wird definitiv noch mehr Streams geben, vielleicht sogar schon im Dezember, aber eben nicht mit Advent-of-Code-Aufgaben.
+Themen hätte ich genug: Tutorials zu oder in Sprachen, mit denen ich mich gut auskenne; Wohnmobilausbau/-technik/Vanlife, Elektronik und Mikrocontroller, Audio-, Video- und Musikproduktion, lauter solche Dinge.
+(Was würde euch interessieren?)
+Von daher würde ich mich freuen, wenn ihr weiter [im Discord](https://discord.gg/GVqzyEV) abhängt (ich verspreche: kein Spam) und [meinen Kanal auf YouTube](https://www.youtube.com/channel/UC2a5Ca5tgel0Ebq5ZgeUbRA) abonniert, einfach damit ihr mitbekommt, wenn’s weitergeht.
 
-*Alle Zeitangaben in Mitteleuropäischer Normalzeit (MEZ, CET).*
+Danke, dass ihr dabei wart!
 
 #### Vergangene Streams
 
@@ -72,6 +78,7 @@ Wenn ihr die 2019er Streams von vorn bis hinten durchschauen wollt, gibt es hier
 * Mi 2019-12-11: [Tag 11](https://youtu.be/Q9Zy0lyZo7E) (Kennzeichen auf die Raumschiffhülle malen lassen)
 * Do 2019-12-12: [Tag 12](https://youtu.be/SAdv45uErnM) (Umlaufbahnen der Jupitermonde)
 * Fr 2019-12-13: [Tag 13](https://youtu.be/HpLr7USHiQQ) (Breakout-Klon in Intcode)
+* Sa 2019-12-14: [Tag 14](https://youtu.be/hIygbzwiUe0) (Produktion von Treibstoff aus Erz über verschiedene chemische Reaktionen)
 
 ## Advent of Code 2018
 
